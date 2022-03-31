@@ -10,6 +10,6 @@ upload to s3:
     - echo "hey, This Is My First Page " >> s3prac/HIRAL11.html
     - aws s3 cp s3prac/HIRAL11.html s3://$S3_BUCKET
     - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_KEY --paths '/*'
-    - echo "code completed sucessfully" 
+    - echo "code completed sucessfully"
   only:
-    - main  
+    - main
