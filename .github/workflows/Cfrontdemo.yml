@@ -14,4 +14,4 @@ jobs:
            aws s3 ls
            ls
            pwd
-           aws s3 cp index.html s3://hiral1111
+           aws s3 cp first.html s3://hiral1111
