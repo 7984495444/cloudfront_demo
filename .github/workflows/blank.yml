@@ -1,0 +1,15 @@
+stages:
+  - build
+
+upload to s3:
+  stage: build
+  script:
+    #- aws configure set region us-east-1
+    - mkdir s3prac
+    - touch s3prac/HIRAL.html
+    - echo "hey, This Is My First Page " >> s3prac/HIRAL.html
+    - aws s3 cp s3prac/HIRAL.html s3://$S3_BUCKET
+    - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_KEY --paths '/*'
+    - echo "code completed sucessfully"
+  only:
+    - main  
