@@ -9,10 +9,10 @@ jobs:
   deploy:
     runs-on: self-hosted
     steps:
-    - uses: actions/checkout@main
-       - aws cloudfront create-invalidation --distribution-id $secrets.$CLOUDFRONT_KEY --paths '/*
+
     - run: |
            aws s3 ls
            ls
            pwd
            aws s3 cp first.html s3://hiral1111
+           - aws cloudfront create-invalidation --distribution-id $secrets.$CLOUDFRONT_KEY --paths '/
