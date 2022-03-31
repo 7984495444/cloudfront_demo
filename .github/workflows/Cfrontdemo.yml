@@ -15,4 +15,4 @@ jobs:
            ls
            pwd
            aws s3 cp first.html s3://hiral1111
-           aws cloudfront create-invalidation --distribution-id $secrets.$CLOUDFRONT_KEY --paths 
+           aws cloudfront create-invalidation --distribution-id $secrets.$CLOUDFRONT_KEY --paths '/
