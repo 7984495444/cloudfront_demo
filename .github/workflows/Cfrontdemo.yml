@@ -1,15 +1,22 @@
-stages:
-  - build
+name: Upload Website
 
-upload to s3:
-  stage: build
-  script:
-    #- aws configure set region ap-south-1
-    - mkdir s3prac
-    - touch s3prac/HIRAL11.html
-    - echo "hey, This Is My First Page " >> s3prac/HIRAL11.html
-    - aws s3 cp s3prac/HIRAL11.html s3://$S3_BUCKET
-    - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_KEY --paths '/*'
-    - echo "code completed sucessfully"
-  only:
+on:
+  push:
+    branches:
     - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@main
+    - uses: jakejarvis/s3-sync-action@master
+      with:
+        args: --acl public-read --follow-symlinks --delete
+      env:
+        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY_ID: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
+        CLOUDFRONT_KEY: ${{ secrets.CLOUDFRONT_KEY }}
+        AWS_REGION: 'ap-south-1'   # optional: defaults to us-east-1
+        SOURCE_DIR: 'public'      # optional: defaults to entire repository
